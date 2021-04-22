@@ -34,3 +34,8 @@ To sync my machine with github, I need to push my project to the repository.
 At Terminal type:
 git push
 
+To work with a project from the repository, I have to be in the correct path in Terminal, then type:
+git pull
+This will pull the file down to my machine.
+
+
