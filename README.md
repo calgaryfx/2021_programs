@@ -38,4 +38,30 @@ To work with a project from the repository, I have to be in the correct path in 
 git pull
 This will pull the file down to my machine.
 
+Adding files to Repository.
+You can add individual files:
+git add alien_invasion.py
+or, you can add all of them in your directory via two options:
+git add .
+git add -A
+
+***To make all this work in a typical day, you would start your day by starting the computer, go to the correct directory***:
+git pull - This will make all my files up to date with whatever was last worked on by other people.
+git add -A   Would be used after modifying your files.
+git commit -m    Is need after to commit the changes... It is better each individual file as -m "Can have a clearer description of the changes."
+You need to commit many times per day as to not have a lot of rework. As commiting late in the day with many changes, when git status is typed, you could be in for a shock at the amount of changes you have to work through.
+git push to push your file up to the repository.
+git pull may get a conflict with files merging.
+
+If so, make the changes to the code, keeping the parts you want, deleteing the 'noise' in the conflict warning. Then:
+git add -A
+git commit
+If a -m "message is not inclueded in the commit of the merge, it will get stuck. To escape type: escape, colon, wq"
+esc:wq
+After recommitting with a message (-m)
+git push 
+
+This is all from Youtube video:
+https://youtu.be/0fKg7e37bQE
+
 
