@@ -29,6 +29,14 @@ class AlienInvasion:
             self.ship.update()
             self.bullets.update()
 
+            # Get rid of bullets that have disappeared off the screen.
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+            #print(len(self.bullets)) This is to see if bullets disappear off the
+            # screen. It should be deleted when confirmed in terminal. I like it,
+            # so have kept it as a check.
+
     def _check_events(self):
         """Respond to keypresses and mouse events."""
         for event in pygame.event.get():
