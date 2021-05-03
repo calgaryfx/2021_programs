@@ -29,23 +29,10 @@ class AlienInvasion:
         """Start the main loop for the game."""
         while True:
             self._check_events()
-            self._update_screen()
             self.ship.update()
             self._update_bullets()
             self._update_aliens()
-
-    def _update_bullets(self):
-        """Update position of bullets and get rid of old bullets."""
-        # Update bullet positions.
-        self.bullets.update()
-
-        # Get rid of bullets that have disappeared off the screen.
-        for bullet in self.bullets.copy():
-            if bullet.rect.bottom <= 0:
-                self.bullets.remove(bullet)
-        #print(len(self.bullets)) This is to see if bullets disappear off the
-        # screen. It should be deleted when confirmed in terminal. I like it,
-        # so have kept it as a check.
+            self._update_screen()
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""
@@ -74,6 +61,19 @@ class AlienInvasion:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+
+    def _update_bullets(self):
+        """Update position of bullets and get rid of old bullets."""
+        # Update bullet positions.
+        self.bullets.update()
+
+        # Get rid of bullets that have disappeared off the screen.
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        #print(len(self.bullets)) This is to see if bullets disappear off the
+        # screen. It should be deleted when confirmed in terminal. I like it,
+        # so have kept it as a check.
 
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group."""
