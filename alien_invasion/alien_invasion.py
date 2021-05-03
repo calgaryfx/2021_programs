@@ -32,6 +32,7 @@ class AlienInvasion:
             self._update_screen()
             self.ship.update()
             self._update_bullets()
+            self._update_aliens()
 
     def _update_bullets(self):
         """Update position of bullets and get rid of old bullets."""
