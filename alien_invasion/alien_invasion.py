@@ -77,12 +77,12 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
-        #print(len(self.bullets)) This is to see if bullets disappear off the
-        # screen. It should be deleted when confirmed in terminal. I like it,
-        # so have kept it as a check.
 
-        # Check for any bullets that have hit aliens.
-        # If so, get rid of the bullet and the alien.
+        self._check_bullet_alien_collisions()
+
+    def _check_bullet_alien_collisions(self):
+        """Respond to bullet-alien collisions."""
+        # Remove any bullets and aliens that have collided.
         collisions = pygame.sprite.groupcollide(
                 self.bullets, self.aliens, True, True)
 
