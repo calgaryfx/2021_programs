@@ -5,7 +5,7 @@ from time import sleep
 import pygame
 
 from ex_13_6_settings import Settings
-from ex_13_6_game_stats import GameStats 
+from ex_13_6_game_stats import GameStats
 from ex_13_6_ship import ShipLeft
 from ex_13_6_bullet import Bullet
 from ex_13_6_alien import Alien
@@ -21,6 +21,9 @@ class SidewaysShooter:
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Sideways Shooter")
+
+        # Create an instance to store game statistics.
+        self.stats = GameStats(self)
 
         self.ship = ShipLeft(self)
         self.bullets = pygame.sprite.Group()
