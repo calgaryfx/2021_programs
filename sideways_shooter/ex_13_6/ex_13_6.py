@@ -121,11 +121,18 @@ class SidewaysShooter:
 
     def _update_aliens(self):
         """
-        Check if the fleet is at the edge,
-        then update the positions of all aliens in the fleet.
+        Check if the fleet is at an edge, collided with the ship, or reached the
+        left side of the screen.
+        Depending on the scenario, change direction of the aliens or reset for
+        the next attack after an alien-ship collision, or aliens have reached the
+        left side of the screen.
         """
         self._check_fleet_edges()
         self.aliens.update()
+
+        # Look for alien-ship collisions.
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            print("Ship hit!!!")
 
     def _check_fleet_edges(self):
         """Respond appropriately if any aliens have reached an edge."""
