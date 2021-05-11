@@ -1,9 +1,11 @@
 # Sideways Shooter pt.2. Bring this up to Alien Invasion level. Sideways movement, etc.
 import sys
+from time import sleep
 
 import pygame
 
 from ex_13_6_settings import Settings
+from ex_13_6_game_stats import GameStats 
 from ex_13_6_ship import ShipLeft
 from ex_13_6_bullet import Bullet
 from ex_13_6_alien import Alien
