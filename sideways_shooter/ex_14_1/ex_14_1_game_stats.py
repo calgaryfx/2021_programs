@@ -10,9 +10,6 @@ class GameStats:
         # Start game in an inactive state.
         self.game_active = False
 
-        # Start Sideways Shooter in an active state.
-        self.game_active = True
-
     def reset_stats(self):
         """Initialize statistics taht can change during the game."""
         self.ships_left = self.settings.ship_limit
