@@ -7,8 +7,11 @@ class GameStats:
         self.settings = ss_game.settings
         self.reset_stats()
 
+        # Start game in an inactive state.
+        self.game_active = False
+
         # Start Sideways Shooter in an active state.
-        self.game_active = True 
+        self.game_active = True
 
     def reset_stats(self):
         """Initialize statistics taht can change during the game."""
