@@ -1,4 +1,4 @@
-# Sideways Shooter pt.2. Bring this up to Alien Invasion level.
+# PCC (P.285) Ex.14-1 Press P to Play.
 import sys
 from time import sleep
 
@@ -6,6 +6,7 @@ import pygame
 
 from ex_14_1_settings import Settings
 from ex_14_1_game_stats import GameStats
+from ex_14_1_button import Button
 from ex_14_1_ship import ShipLeft
 from ex_14_1_bullet import Bullet
 from ex_14_1_alien import Alien
@@ -30,6 +31,9 @@ class SidewaysShooter:
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
+
+        # Make the Play button.
+        self.play_button = Button(self, "Press p to play")
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -198,6 +202,10 @@ class SidewaysShooter:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+
+        # Draw the play button if the game is inactive.
+        if not self.stats.game_active:
+            self.play_button.draw_button()
 
         pygame.display.flip()
 
