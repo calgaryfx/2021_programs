@@ -22,3 +22,13 @@ print(a)
 
 a = even_or_odd([333, -207, 999, 541, -3233])
 print(a)
+
+# A shorter solution from Edabit (user - Werdna):
+def ev_or_odd(lst):
+    return 'odd' if sum(lst) % 2 else 'even'
+
+z = ev_or_odd([0, 2])
+print(z)
+
+z = ev_or_odd([0, 2, 1])
+print(z)
