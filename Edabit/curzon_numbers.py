@@ -3,13 +3,8 @@
 # number. Given a non-negative integer num, implement a function that returns
 # True if num is a Curzon number, of False otherwise.
 def is_curzon(num):
-    num1 = (2 * num) + 1
-    num2 = (2 ** num) + 1
-    if num2 % num1 == 0:
-        return True
-    else:
-        return False
-
+    return (2 ** num + 1) % (2 * num + 1) == 0
+    
 x = is_curzon(5)
 print(x)
 
