@@ -1,11 +1,8 @@
-# Create a function that takes an angle in radians and returns the corresponding
-# angle in degrees rounded to one decimal place
+# Re-wrote for single return line.
 from math import pi
 
 def radians_to_degrees(rad):
-    degree = (rad * 180) / pi
-    degree = round(degree, 1)
-    return degree
+    return round((rad * 180) / pi, 1)
 
 degrees = radians_to_degrees(1)
 print(degrees)
