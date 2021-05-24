@@ -1,10 +1,7 @@
 # Create a function that takes an integer and returns the factorial of that integer.
 # That is, the integer multiplied by all the positive lower integers.
 def factorial(num):
-    fact = 1
-    for i in range(1, num+1):
-        fact = fact * i
-    return fact
+    return 1 if num < 2 else num * factorial(num - 1)
 
 factor = factorial(3)
 print(factor)
