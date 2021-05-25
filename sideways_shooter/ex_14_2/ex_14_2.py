@@ -3,11 +3,17 @@
 # Create ship on left side player can move up and down and fire bullets.
 # Add a play button that starts the game, after the player misses the target three
 # times, end the game, have play button re-appear to re-start.
+import sys
+from time import sleep
+
 import pygame
 
 from ex_14_2_settings import Settings
 from ex_14_2_game_stats import GameStats
+from ex_14_2_button import Button
 from ex_14_2_ship import Ship
+from ex_14_2_bullet import Bullet
+from ex_14_2_alien import Alien 
 
 class SidewaysShooter:
     """Overall class to manage game assets and behavior."""
@@ -134,6 +140,24 @@ class SidewaysShooter:
             elif alien.rect.bottom >= screen_rect.bottom:
                 self._set_fleet_direction(-1) # New direction is up.
                 break
+
+    def _shots_missed(self):
+        """Respond to 3 shots missing alien ship."""
+        if self.stats.aliens_left > 1:
+            # Decrement alien ships left.
+            self.stats.aliens_left -= 1
+
+            # Get rid of remaining alien ships and bullets.
+            self.aliens.empty()
+            self.bullets.empty()
+
+            # Create a new alien ship.
+            self._create_alien()
+
+            # Pause.
+            sleep(0.5)
+        else:
+            self.stats.game_active = False
 
     def _update_screen(self):
         """Update images on the screen, flip to the new screen."""
