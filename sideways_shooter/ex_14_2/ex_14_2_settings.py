@@ -11,7 +11,6 @@ class Settings:
 
         # Ship settings.
         self.ship_speed = 1.5
-        self.ship_limit = 3
 
         # Bullet settings.
         self.bullet_speed = 3.0
@@ -19,6 +18,9 @@ class Settings:
         self.bullet_height = 3
         self.bullet_color = (255, 0, 0)
         self.bullets_allowed = 3
+
+        # shot settings.
+        self.shots_left = 3
 
         # Alien Settings.
         self.alien_speed = 2
