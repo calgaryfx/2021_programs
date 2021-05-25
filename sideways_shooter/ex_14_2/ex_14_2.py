@@ -13,26 +13,29 @@ from ex_14_2_game_stats import GameStats
 from ex_14_2_button import Button
 from ex_14_2_ship import Ship
 from ex_14_2_bullet import Bullet
-from ex_14_2_alien import Alien 
+from ex_14_2_alien import Alien
 
-class SidewaysShooter:
+class TargetPractice:
     """Overall class to manage game assets and behavior."""
 
     def __init__(self):
         """Initialize the game, create game resources."""
         pygame.init()
-        self.setting = Settings()
+        self.settings = Settings()
 
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
-        pygame.display.set_caption("Sideways Shooter Ex.14-2")
+        pygame.display.set_caption("Target Practice")
 
         # Create an instance to store game statistics.
         self.stats = GameStats(self)
 
-        self.ship = ShipLeft(self)
+        self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
-        self.aliens = pygame.sprite.Group()
+        self.alien = pygame.sprite.Group()
+
+        # Make the Play button.
+        self.play_button = Button(self, "Press p to play")
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -42,12 +45,12 @@ class SidewaysShooter:
             if self.stats.game_active:
                 self.ship.update()
                 self._update_bullets()
-                self._update_aliens()
+                self._update_alien()
 
             self._update_screen()
 
     def _check_events(self):
-        """Respond to keypresses and mouse event."""
+        """Respond to keypresses and mouse events."""
         for event in pygame.event.get():
             if event.type == pygmae.QUIT:
                 sys.exit()
@@ -61,8 +64,7 @@ class SidewaysShooter:
         self.stats.reset_stats()
         self.stats.game_active = True
 
-        # Get rid of any remaining aliens and bullets.
-        self.aliens.empty()
+        # Get rid of any remaining bullets.
         self.bullets.empty()
 
         # Create a new alien and center the ship.
@@ -77,7 +79,7 @@ class SidewaysShooter:
             self.ship.moving_down = True
         elif event.key == pygame.K_q:
             sys.exit()
-        elif event.key == pygame K_SPACE:
+        elif event.key == pygame.K_SPACE:
             self._fire_bullet()
         elif event.key == pygame.K_p:
             self._start_game()
@@ -104,14 +106,15 @@ class SidewaysShooter:
         for bullet in self.bullets.copy():
             if bullet.rect.left >= 1200:
                 self.bullets.remove(bullet)
+                self._shots_missed()
         # print(len(self.bullets))
 
-        # Check for any bullets that have hit aliens.
+        # Check for any bullets that have hit alien.
         # If so, get rid of the bullet and the alien.
         collisions = pygame.sprite.groupcollide(
-                self.bullets, self.aliens, True, True)
+                self.bullets, self.alien, True, True)
 
-        if not self.aliens:
+        if not self.alien:
             # Destroy exisitng bullets and create new alien.
             self.bullets.empty()
             self._create_alien()
@@ -122,33 +125,23 @@ class SidewaysShooter:
         alien_width, alien_height = alien.rect.size
         alien.rect.x = 1200 - (2 * alien_width) - (2 * alien.rect.width) * (
                         row_number)
-        alien.rect.y = alien.y = alien.rect.height + 2 alien.rect.height * alien_number
-        self.aliens.add(alien)
+        alien.rect.y = alien.y = alien.rect.height + 2  * alien.rect.height * (
+                        alien_number)
+        self.alien.add(alien)
 
-    def _update_aliens(self):
+    def _update_alien(self):
         """Change alien direction when screen edges reached."""
-        self._check_fleet_edges()
-        self.aliens.update()
-
-    def _check_fleet_edges(self):
-        """Change alien direction when screen edges reached."""
-        screen_rect = self.screen.get_rect()
-        for alien in self.aliens.sprites():
-            if alien.rect.top <= screen_rect.top:
-                self._set_fleet_direction(1) # New direction is down.
-                break
-            elif alien.rect.bottom >= screen_rect.bottom:
-                self._set_fleet_direction(-1) # New direction is up.
-                break
+        self._check_alien_edges()
+        self.alien.update()
 
     def _shots_missed(self):
-        """Respond to 3 shots missing alien ship."""
-        if self.stats.aliens_left > 1:
-            # Decrement alien ships left.
-            self.stats.aliens_left -= 1
+        """Increment shots missed and respond to 3 shots missing alien ship."""
+        if self.stats.shots_left > 1:
+            # Decrement shots left.
+            self.stats.shots_left -= 1
 
             # Get rid of remaining alien ships and bullets.
-            self.aliens.empty()
+            self.alien.empty()
             self.bullets.empty()
 
             # Create a new alien ship.
@@ -165,15 +158,16 @@ class SidewaysShooter:
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
-        self.aliens.draw(self.screen)
 
-    # Draw the play button if the game is inactive.
-    if not self.stats.game_active:
-        self.play_button.draw_button()
+        self.alien.draw(self.screen)
 
-    pygame.display.flip()
+        # Draw the play button if the game is inactive.
+        if not self.stats.game_active:
+            self.play_button.draw_button()
+
+        pygame.display.flip()
 
 if __name__ == '__main__':
     # Make a game instance, run the game.
-    ss = SidewaysShooter()
-    ss.run_game()
+    tp = TargetPractice()
+    tp.run_game()
