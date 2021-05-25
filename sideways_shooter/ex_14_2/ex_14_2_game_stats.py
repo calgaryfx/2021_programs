@@ -13,5 +13,3 @@ class GameStats:
     def reset_stats(self):
         """initialize statistics that can change during the game."""
         self.shots_left = self.settings.shot_limit
-
-        self.num_misses = 0
