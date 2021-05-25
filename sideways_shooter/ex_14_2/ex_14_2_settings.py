@@ -1,16 +1,26 @@
 # PCC (P.285) Ex.14-2 Target Practice.
-# Create ship on right side that moves up and down at a asteady rate.
-# Create ship on left side player can move up and down and fire bullets.
-# Add a play button that starts the game, after the player misses the target three
-# times, end the game, have play button re-appear to re-start.
-import pygame
+class Settings:
+    """Sideways Shooter settings."""
 
-from ex_14_2_settings import Settings 
+    def __init__(self):
+        """Initialize the game's settings."""
+        # Screen settings.
+        self.screen_width = 1200
+        self.screen_height = 800
+        self.bg_color = (230, 230, 230)
 
-class SidewaysShooter:
-    """Overall class to manage game assets and behavior."""
+        # Ship settings.
+        self.ship_speed = 1.5
+        self.ship_limit = 3
 
-    def _init_(self):
-        """Initialize the game, create game resources."""
-        pygame.init()
-        self.setting = Settings()
+        # Bullet settings.
+        self.bullet_speed = 3.0
+        self.bullet_width = 15
+        self.bullet_height = 3
+        self.bullet_color = (255, 0, 0)
+        self.bullets_allowed = 3
+
+        # Alien Settings.
+        self.alien_speed = 2
+        # alien_direction of 1 represents up, -1 represents down.
+        self.alien_direction = 1
