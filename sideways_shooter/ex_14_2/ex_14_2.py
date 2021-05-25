@@ -52,7 +52,7 @@ class TargetPractice:
     def _check_events(self):
         """Respond to keypresses and mouse events."""
         for event in pygame.event.get():
-            if event.type == pygmae.QUIT:
+            if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
@@ -84,7 +84,7 @@ class TargetPractice:
         elif event.key == pygame.K_p:
             self._start_game()
 
-    def _check_keyup_events(self):
+    def _check_keyup_events(self, event):
         """Respond to key releases."""
         if event.key == pygame.K_UP:
             self.ship.moving_up = False
@@ -119,19 +119,14 @@ class TargetPractice:
             self.bullets.empty()
             self._create_alien()
 
-    def _create_alien(self, alien_number, row_number):
+    def _create_alien(self):
         """Create an alien, place it on the screen."""
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
-        alien.rect.x = 1200 - (2 * alien_width) - (2 * alien.rect.width) * (
-                        row_number)
-        alien.rect.y = alien.y = alien.rect.height + 2  * alien.rect.height * (
-                        alien_number)
         self.alien.add(alien)
 
     def _update_alien(self):
         """Change alien direction when screen edges reached."""
-        self._check_alien_edges()
         self.alien.update()
 
     def _shots_missed(self):
