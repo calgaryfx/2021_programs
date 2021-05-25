@@ -20,7 +20,7 @@ class Settings:
         self.bullets_allowed = 3
 
         # shot settings.
-        self.missed_shots = 3
+        self.shot_limit = 3
 
         # Alien Settings.
         self.alien_speed = 2
