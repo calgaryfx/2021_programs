@@ -4,14 +4,14 @@ import pygame
 class Ship:
     """A class to manage the ship on the left side of the screen."""
 
-    def __init__(self, ss_game):
+    def __init__(self, tp_game):
         """Initialize the ship and set its starting position."""
-        self.screen = ss_game.screen
-        self.settings = ss_game.settings
-        self.screen_rect = ss_game.screen.get_rect()
+        self.screen = tp_game.screen
+        self.settings = tp_game.settings
+        self.screen_rect = tp_game.screen.get_rect()
 
         # Load the ship image and get its rect.
-        self.image = pygame.image.load('images/rocekt_small.png')
+        self.image = pygame.image.load('images/rocket_small.png')
         self.rect = self.image.get_rect()
 
         # Start the ship on left hand side of screen, in the middle.
@@ -42,4 +42,6 @@ class Ship:
     def center_ship(self):
         """Center the ship on the screen."""
         self.rect.midleft = self.screen_rect.midleft
+
+        # Store a decimal value for the ships vertical position.
         self.y = float(self.rect.y)
