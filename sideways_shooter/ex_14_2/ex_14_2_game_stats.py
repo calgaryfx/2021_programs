@@ -2,9 +2,9 @@
 class GameStats:
     """Track statistics for Sideways Shooter."""
 
-    def __init__(self, ss_game):
+    def __init__(self, tp_game):
         """Initialize statistics."""
-        self.settings = ss_game.settings
+        self.settings = tp_game.settings
         self.reset_stats()
 
         # Start game in an inactive state.
@@ -12,4 +12,6 @@ class GameStats:
 
     def reset_stats(self):
         """initialize statistics that can change during the game."""
-        self.shots_left = self.settings.missed_shots
+        self.shots_left = self.settings.shot_limit
+
+        self.num_misses = 0
