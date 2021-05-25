@@ -4,14 +4,14 @@ from pygame.sprite import Sprite
 
 class Alien(Sprite):
     """A class to represent the alien ship."""
-    def __init__(self, ss_game):
+    def __init__(self, tp_game):
         """Initialize the alien and set its starting position."""
         super().__init__()
-        self.screen = ss_game.screen
-        self.settings = ss_game.settings
+        self.screen = tp_game.screen
+        self.settings = tp_game.settings
 
         # Load the alien image and set its rect attribute.
-        self.image = pygame.image.load('images/alien_ship.bmp')
+        self.image = pygame.image.load('images/alien_ship.png')
         self.rect = self.image.get_rect()
 
         # Start each new alien near the top right of the screen.
@@ -29,6 +29,5 @@ class Alien(Sprite):
 
     def update(self):
         """Move the alien down or up."""
-        self.y += (self.settings.alien_speed * self_settings.fleet_direction)
+        self.y += (self.settings.alien_speed * self_settings.alien_direction)
         self.rect.y = self.y
-        
