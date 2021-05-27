@@ -40,4 +40,8 @@ class TargetPractice:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
-    
+
+if __name__ == '__main__':
+    # Make a game instance and run the game.
+    tp = TargetPractice()
+    tp.run_game()
