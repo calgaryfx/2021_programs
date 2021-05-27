@@ -26,4 +26,18 @@ class TargetPractice:
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Target Practice")
 
-        
+    def run_game(self):
+        """Start the main loop for the game."""
+        while True:
+            self._check_events()
+
+    def _check_events(self):
+        """Respond to keypress events."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                self._check_keydown_events(event)
+            elif event.type == pygame.KEYUP:
+                self._check_keyup_events(event)
+    
