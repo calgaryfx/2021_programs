@@ -27,7 +27,12 @@ class TargetPractice:
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Target Practice")
 
+        # Create an instance to store game statistics.
+        self.stats = GameStats(self)
+
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
+
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -35,7 +40,8 @@ class TargetPractice:
             self._check_events()
 
             if self.stats.game_active:
-                self.ship.blitme()
+                self.ship.update()
+                self._update_bullets()
 
             self._update_screen()
 
@@ -48,6 +54,51 @@ class TargetPractice:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+
+    def _check_keydown_events(self, event):
+        """Respond to keypresses."""
+        if event.key == pygame.K_UP:
+            self.ship.moving_up = True
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = True
+        elif event.key == pygame.K_q:
+            sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+
+    def _check_keyup_events(self, event):
+        """Respond to key releases."""
+        if event.key == pygame.K_UP:
+            self.ship.moving_up = False
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = False
+
+    def _fire_bullet(self):
+        """Create a new bullet and add it to the bullets group."""
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        """Update position of bullets and get rid of old bullets."""
+        # Update bullet positions.
+        self.bullets.update()
+
+        # Get rid of bullets that have disappeared off the screen.
+        for bullet in self.bullets.copy():
+            if bullet.rect.left >= 1200:
+                self.bullets.remove(bullet)
+        #print(len(self.bullets))
+
+        # Check for any bullets that have hit the alien.
+        # If so, get rid of the bullet and alien.
+        collisions = pygame.sprite.groupcollide(
+                self.bullets, self.alien, True, True)
+
+        if not self.alien:
+            # Destroy exising bullets and create new alien.
+            self.bullets.empty()
+            self._create_alien()
 
     def _update_screen(self):
         """Update images on the screen, flip to a new screen."""
