@@ -4,4 +4,6 @@ class GameStats:
 
     def __init__(self, tp_game):
         """Initialize statistics."""
-    
+
+        # Start Target Practice in an active state.
+        self.game_active = True 
