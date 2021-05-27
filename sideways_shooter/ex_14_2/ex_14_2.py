@@ -20,4 +20,10 @@ class TargetPractice:
 
     def __init__(self):
         """Initialize the game, create game resources."""
+        pygame.init()
+
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
+        pygame.display.set_caption("Target Practice")
+
         
