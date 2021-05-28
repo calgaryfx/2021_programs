@@ -3,10 +3,7 @@
 # otherwise.
 import datetime
 def time_for_milk_and_cookies(date):
-    if date.month == 12 and date.day == 24:
-        return True
-    else:
-        return False
+    return (date.month == 12 and date.day == 24)
 
 a = time_for_milk_and_cookies(datetime.date(2013, 12, 24))
 print(a)
