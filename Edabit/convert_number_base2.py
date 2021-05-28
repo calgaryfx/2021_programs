@@ -5,12 +5,7 @@
 # every bit to the left will be two times the value, value of an 8 bit binary numbers
 # are (256, 128, 64, 32, 16, 8, 4, 2, 1).
 def binary(decimal):
-    bin_num = []
-    number = bin(decimal)
-    bin_num.append(number)
-
-    for num in bin_num:
-        return(num[2:])
+    return bin(decimal)[2:]
 
 
 a = binary(1)
