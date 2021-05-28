@@ -3,7 +3,7 @@
 # otherwise.
 import datetime
 def time_for_milk_and_cookies(date):
-    return (date.month == 12 and date.day == 24)
+    return date == datetime.date(date.year, 12, 24)
 
 a = time_for_milk_and_cookies(datetime.date(2013, 12, 24))
 print(a)
