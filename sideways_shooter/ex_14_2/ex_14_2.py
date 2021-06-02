@@ -9,6 +9,7 @@ import pygame
 
 from ex_14_2_settings import Settings
 from ex_14_2_ship import Ship
+from ex_14_2_bullet import Bullet
 
 class TargetPractice:
     """Overall class to manage game assets and behavior."""
@@ -23,12 +24,14 @@ class TargetPractice:
         pygame.display.set_caption("Target Practice")
 
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         """Start the main loop for the game."""
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
 
     def _check_events(self):
@@ -49,6 +52,8 @@ class TargetPractice:
             self.ship.moving_down = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_keyup_events(self, event):
         """Respond to key releases."""
@@ -57,10 +62,17 @@ class TargetPractice:
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = False
 
+    def _fire_bullet(self):
+        """Create a new bullet and add it to the bullets group."""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()  # Ship is drawn after background to not disappear.
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
 
         # Make the most recently drawn screen visible.
         pygame.display.flip()
