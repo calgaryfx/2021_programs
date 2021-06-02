@@ -35,6 +35,10 @@ class TargetPractice:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    # Move the ship up the screen.
+                    self.ship.rect.y -= 1
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
