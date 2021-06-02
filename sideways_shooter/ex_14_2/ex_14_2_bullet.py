@@ -9,7 +9,7 @@ class Bullet(Sprite):
         """Create a bullet objective at the ships current position."""
         super().__init__()
         self.screen = tp_game.screen
-        self.setting = tp_game.settings
+        self.settings = tp_game.settings
         self.color = self.settings.bullet_color
 
         # Create a bullet rect at (0, 0) and then set correct position.
