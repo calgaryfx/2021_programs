@@ -10,6 +10,7 @@ import pygame
 from ex_14_2_settings import Settings
 from ex_14_2_ship import Ship
 from ex_14_2_bullet import Bullet
+from ex_14_2_alien import Alien
 
 class TargetPractice:
     """Overall class to manage game assets and behavior."""
@@ -25,6 +26,9 @@ class TargetPractice:
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.alien = pygame.sprite.Group()
+
+        self._create_alien()
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -62,6 +66,12 @@ class TargetPractice:
         elif event.key == pygame.K_DOWN:
             self.ship.moving_down = False
 
+    def _create_alien(self):
+        """Create the alien ship."""
+        # Make an alien.
+        alien = Alien(self)
+        self.alien.add(alien)
+
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group."""
         if len(self.bullets) < self.settings.bullets_allowed:
@@ -85,6 +95,7 @@ class TargetPractice:
         self.ship.blitme()  # Ship is drawn after background to not disappear.
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        self.alien.draw(self.screen)
 
         # Make the most recently drawn screen visible.
         pygame.display.flip()
