@@ -4,10 +4,12 @@
 # Add a play button that starts the game, after the player misses the target three
 # times, end the game, have play button re-appear to re-start.
 import sys
+from time import sleep
 
 import pygame
 
 from ex_14_2_settings import Settings
+from ex_14_2_game_stats import GameStats
 from ex_14_2_ship import Ship
 from ex_14_2_bullet import Bullet
 from ex_14_2_alien import Alien
@@ -23,6 +25,9 @@ class TargetPractice:
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Target Practice")
+
+        # Create an instance to store game statistics.
+        self.stats = GameStats(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -112,9 +117,15 @@ class TargetPractice:
                 self.bullets, self.alien, True, True)
 
         if not self.alien:
-            # Destroy existing bullets and create new alien ship.
+            # Destroy existing bullets on screen.
             self.bullets.empty()
+            # Decrement alien ships left.
+            self.stats.aliens_left -= 1
+            # Create a new alien ship.
             self._create_alien()
+
+            # Pause.
+            sleep(0.5)
 
     def _update_alien(self):
         """Update the position of the alien ship."""
