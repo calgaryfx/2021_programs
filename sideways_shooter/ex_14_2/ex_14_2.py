@@ -119,13 +119,16 @@ class TargetPractice:
         if not self.alien:
             # Destroy existing bullets on screen.
             self.bullets.empty()
-            # Decrement alien ships left.
-            self.stats.aliens_left -= 1
-            # Create a new alien ship.
-            self._create_alien()
+            if self.stats.aliens_left > 1:
+                # Decrement alien ships left.
+                self.stats.aliens_left -= 1
+                # Create a new alien ship.
+                self._create_alien()
 
-            # Pause.
-            sleep(0.5)
+                # Pause.
+                sleep(0.5)
+            else:
+                self.stats.game_active = False 
 
     def _update_alien(self):
         """Update the position of the alien ship."""
