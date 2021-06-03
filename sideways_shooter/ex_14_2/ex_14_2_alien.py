@@ -8,6 +8,7 @@ class Alien(Sprite):
         """Initialize the alien and set its starting position."""
         super().__init__()
         self.screen = tp_game.screen
+        self.settings = tp_game.settings
 
         # Load the alien ship image and set its rect attribute.
         self.image = pygame.image.load('images/alien_ship.png')
@@ -18,4 +19,14 @@ class Alien(Sprite):
         self.rect.midright = self.screen_rect.midright
 
         # Store the alien's exact horizontal position.
-        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
+
+    def check_edges(self):
+        """Return True if alien ship is at edge of screen."""
+        if self.rect.top <= self.screen_rect.top or self.rect.bottom >= 800:
+            return True
+
+    def update(self):
+        """Move the alien ship up and down."""
+        self.y += (self.settings.alien_speed * self.settings.alien_direction)
+        self.rect.y = self.y
