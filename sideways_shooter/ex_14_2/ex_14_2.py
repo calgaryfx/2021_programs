@@ -103,10 +103,18 @@ class TargetPractice:
                 self.bullets.remove(bullet)
         #print(len(self.bullets))
 
-        # Check for any bullets that have hit alien ships.
-        # If so, get rid of the bullet and alien ship.
+        self._check_bullet_alien_collison()
+
+    def _check_bullet_alien_collison(self):
+        """respond to bullet-alien ship collision."""
+        # Remove bullets and alien ship when they collide.
         collisions = pygame.sprite.groupcollide(
                 self.bullets, self.alien, True, True)
+
+        if not self.alien:
+            # Destroy existing bullets and create new alien ship.
+            self.bullets.empty()
+            self._create_alien()
 
     def _update_alien(self):
         """Update the position of the alien ship."""
