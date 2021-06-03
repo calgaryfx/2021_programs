@@ -103,6 +103,11 @@ class TargetPractice:
                 self.bullets.remove(bullet)
         #print(len(self.bullets))
 
+        # Check for any bullets that have hit alien ships.
+        # If so, get rid of the bullet and alien ship.
+        collisions = pygame.sprite.groupcollide(
+                self.bullets, self.alien, True, True)
+
     def _update_alien(self):
         """Update the position of the alien ship."""
         self._check_alien_edges()
