@@ -36,6 +36,7 @@ class TargetPractice:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_alien()
             self._update_screen()
 
     def _check_events(self):
@@ -72,6 +73,19 @@ class TargetPractice:
         alien = Alien(self)
         self.alien.add(alien)
 
+    def _check_alien_edges(self):
+        """Respond appropriately if an alien ship reaches the screen edge."""
+        for alien in self.alien.sprites():
+            if alien.check_edges():
+                self._change_alien_direction()
+                break
+
+    def _change_alien_direction(self):
+        """Change alien ship direction when it reaches screen edge."""
+        for alien in self.alien.sprites():
+            alien.rect.y += self.settings.alien_speed
+        self.settings.alien_direction *= -1
+
     def _fire_bullet(self):
         """Create a new bullet and add it to the bullets group."""
         if len(self.bullets) < self.settings.bullets_allowed:
@@ -88,6 +102,11 @@ class TargetPractice:
             if bullet.rect.left >= 1200:
                 self.bullets.remove(bullet)
         #print(len(self.bullets))
+
+    def _update_alien(self):
+        """Update the position of the alien ship."""
+        self._check_alien_edges()
+        self.alien.update()
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
