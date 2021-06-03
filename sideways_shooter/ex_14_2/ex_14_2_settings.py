@@ -14,6 +14,7 @@ class Settings:
 
         # Alien settings
         self.alien_speed = 2.0
+        self.alien_limit = 3
         # Alien direction of 1 represents up; -1 represents down.
         self.alien_direction = 1
 
