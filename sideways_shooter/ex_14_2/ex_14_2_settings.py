@@ -12,6 +12,11 @@ class Settings:
         # Ship Settings
         self.ship_speed = 2.5
 
+        # Alien settings
+        self.alien_speed = 2.0
+        # Alien direction of 1 represents up; -1 represents down.
+        self.alien_direction = 1
+
         # Bullet settings
         self.bullet_speed = 3.0
         self.bullet_width = 15
