@@ -10,6 +10,7 @@ import pygame
 
 from ex_14_2_settings import Settings
 from ex_14_2_game_stats import GameStats
+from ex_14_2_button import Button
 from ex_14_2_ship import Ship
 from ex_14_2_bullet import Bullet
 from ex_14_2_alien import Alien
@@ -35,13 +36,19 @@ class TargetPractice:
 
         self._create_alien()
 
+        # Make the Play button.
+        self.play_button = Button(self, "Play")
+
     def run_game(self):
         """Start the main loop for the game."""
         while True:
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_alien()
+
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_alien()
+
             self._update_screen()
 
     def _check_events(self):
@@ -128,7 +135,7 @@ class TargetPractice:
                 # Pause.
                 sleep(0.5)
             else:
-                self.stats.game_active = False 
+                self.stats.game_active = False
 
     def _update_alien(self):
         """Update the position of the alien ship."""
@@ -142,6 +149,10 @@ class TargetPractice:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.alien.draw(self.screen)
+
+        # Draw the play button if the game is inactive.
+        if not self.stats.game_active:
+            self.play_button.draw_button()
 
         # Make the most recently drawn screen visible.
         pygame.display.flip()
