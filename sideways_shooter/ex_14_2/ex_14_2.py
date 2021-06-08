@@ -72,6 +72,9 @@ class TargetPractice:
             self.stats.reset_stats()
             self.stats.game_active = True
 
+            # Hide the mouse cursor when game starts.
+            pygame.mouse.set_visible(False)
+
             # Get rid of remaining bullets.
             self.alien.empty()
             self.bullets.empty()
@@ -137,7 +140,7 @@ class TargetPractice:
         self._check_bullet_alien_collison()
 
     def _check_bullet_alien_collison(self):
-        """respond to bullet-alien ship collision."""
+        """Respond to alien ship being hit by bullet."""
         # Remove bullets and alien ship when they collide.
         collisions = pygame.sprite.groupcollide(
                 self.bullets, self.alien, True, True)
@@ -155,6 +158,7 @@ class TargetPractice:
                 sleep(0.5)
             else:
                 self.stats.game_active = False
+                pygame.mouse.set_visible(True)
 
     def _update_alien(self):
         """Update the position of the alien ship."""
