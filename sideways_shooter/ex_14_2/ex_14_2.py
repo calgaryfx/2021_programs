@@ -37,7 +37,7 @@ class TargetPractice:
         self._create_alien()
 
         # Make the Play button.
-        self.play_button = Button(self, "Play")
+        self.play_button = Button(self, "Press p or click to Play")
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -63,6 +63,22 @@ class TargetPractice:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+
+    def _start_game(self):
+        """Start a new game when playe clicks 'p' rather than mouse click."""
+        self.stats.reset_stats()
+        self.stats.game_active = True
+
+        # Hide the mouse cursor when game starts.
+        pygame.mouse.set_visible(False)
+
+        # Get rid of remaining bullets.
+        self.alien.empty()
+        self.bullets.empty()
+
+        # Create a new alien and center the ship.
+        self._create_alien()
+        self.ship.center_ship()
 
     def _check_play_button(self, mouse_pos):
         """Start a new game when the player clicks Play."""
@@ -93,6 +109,8 @@ class TargetPractice:
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
+        elif event.key == pygame.K_p:
+            self._start_game()
 
     def _check_keyup_events(self, event):
         """Respond to key releases."""
